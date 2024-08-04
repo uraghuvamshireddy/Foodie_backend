@@ -36,8 +36,9 @@ const vendorLogin = async(req,res)=>{
         if(!vendor || !(await bcrypt.compare(password,vendor.password))){
             return res.status(401).json({error: "Invalid usename or password" });
         }
+        const vendorId = vendor._id;
         const token = jwt.sign({vendorId: vendor._id},secretKey, {expiresIn: "1h"});
-        res.status(200).json({success: "Login successful",token});
+        res.status(200).json({success: "Login successful",token,vendorId});
     }
     catch(err){
         console.log(err);
@@ -63,8 +64,12 @@ const getVendorById = async(req,res)=>{
         if(!vendor){
             return res.status(404).json({error: "Vendor not found"});
 
+            
         }
-        res.status(200).json({vendor});
+    
+      const vendorFirmId = vendor.firm[0]._id;
+       res.status(200).json({vendorId,vendorFirmId});
+       
     } catch (error) {
         console.log(error);
         res.status(500).json({err: "intrenal server error"});
