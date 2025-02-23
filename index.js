@@ -5,6 +5,7 @@ const vendorRoutes = require('./routes/vendorRoutes');
 const bodyParser = require('body-parser');
 const firmRoutes = require('./routes/firmRoutes');
 const productRoutes = require('./routes/productRoutes');
+const orderRoutes = require('./routes/orderRoute');
 const cors = require('cors');
 const path = require('path');
 const qrcode = require('qrcode');
@@ -23,6 +24,7 @@ app.use(bodyParser.json());
  app.use('/vendor',vendorRoutes);
  app.use('/firm',firmRoutes);
  app.use('/product',productRoutes);
+ app.use('/order',orderRoutes);
  app.use('/uploads',express.static('uploads'));
 
 
