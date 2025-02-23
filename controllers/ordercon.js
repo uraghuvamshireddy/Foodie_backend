@@ -35,4 +35,20 @@ const orderItems = async(req,res)=>{
 
 }
 
-module.exports = {orderItems};
+const viewOrders = async(req,res)=>{
+try{
+    const firmId = req.params.firmId;
+    const firm = await Firm.findById(firmId);
+    if(!firm){
+        res.status(404).json({ message: "Firm not found" })
+    }
+    const orders = await Order.find({firm: firmId});
+res.status(200).json({orders});
+}
+catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" })   
+}
+}
+
+module.exports = {orderItems,viewOrders};
