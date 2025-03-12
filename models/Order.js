@@ -26,6 +26,10 @@ const orderSchema = new mongoose.Schema({
     totalPrice: {
         type: Number
     },
+    completed:{
+        type: Boolean,
+        default:false
+    },
     firm: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Firm'

@@ -10,7 +10,7 @@ const orderItems = async(req,res)=>{
        if (!firm) {
         res.status(404).json({ message: "Firm not found" })
         }
-
+       const com = false;
         const order = new Order({
             name,
             phoneNumber,
@@ -19,6 +19,7 @@ const orderItems = async(req,res)=>{
             paymentOption,
             items,
             totalPrice,
+            com,
             firm:firm._id
         })
 
@@ -51,4 +52,25 @@ catch (error) {
 }
 }
 
-module.exports = {orderItems,viewOrders};
+const comorder = async(req,res)=>{
+    try {
+        const { orderId } = req.params;
+    
+        const updatedOrder = await Order.findByIdAndUpdate(
+          orderId,
+          { completed: true },
+          { new: true }
+        );
+    
+        if (!updatedOrder) {
+          return res.status(404).json({ message: "Order not found" });
+        }
+    
+        res.json({ message: "Order marked as completed", order: updatedOrder });
+      } catch (error) {
+        console.error("Error updating order:", error);
+        res.status(500).json({ message: "Internal server error" });
+      }
+}
+
+module.exports = {orderItems,viewOrders,comorder};
