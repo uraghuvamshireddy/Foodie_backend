@@ -13,7 +13,7 @@ const qrcode = require('qrcode');
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT||4000;
-app.use(cors())
+app.use(cors({ origin: "*" }));
 
 mongoose.connect(process.env.MONGO_URI)
  .then(()=>console.log("MongoDB connected "))
@@ -21,6 +21,14 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({extended: true}));
+app.use(
+    cors({
+      origin: ["https://enchanting-manatee-dd5c07.netlify.app"], // Allow only Netlify
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      allowedHeaders: ["Content-Type"],
+    })
+  );
+  
  app.use('/vendor',vendorRoutes);
  app.use('/firm',firmRoutes);
  app.use('/product',productRoutes);
