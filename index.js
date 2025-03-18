@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({extended: true}));
 app.use(
     cors({
-      origin: ["https://enchanting-manatee-dd5c07.netlify.app"], // Allow only Netlify
+      origin: ["https://enchanting-manatee-dd5c07.netlify.app"],
       methods: ["GET", "POST", "PUT", "DELETE"],
       allowedHeaders: ["Content-Type"],
     })
