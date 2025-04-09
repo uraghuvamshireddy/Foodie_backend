@@ -73,6 +73,8 @@ const deletedProductById = async(req,res)=>{
             res.status(404).json({ message: "Product not found" })
 
         }
+        res.status(200).json({ message: "Product deleted successfully" });
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal server error" })  
